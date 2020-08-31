@@ -1,0 +1,124 @@
+{
+  "filmes": [
+    {
+      "Titulo": "Filme",
+      "Ano": "31",
+      "Categoria": "Filme]",
+      "Locado": true,
+      "LocatarioId": 1,
+      "Locatario": {
+        "Nome": "Lucas",
+        "EnderecoCompleto": "Av. Dom Pedro",
+        "DataDeNascimento": "1997-06-25T00:00:00",
+        "Id": 1
+      },
+      "Id": 0
+    },
+    {
+      "Titulo": "filme",
+      "Ano": "2010",
+      "Categoria": "ação",
+      "Locado": false,
+      "LocatarioId": 0,
+      "Locatario": null,
+      "Id": 0
+    },
+    {
+      "Titulo": "filme 2",
+      "Ano": "2010",
+      "Categoria": "ação",
+      "Locado": true,
+      "LocatarioId": 1,
+      "Locatario": {
+        "Nome": "Lucas",
+        "EnderecoCompleto": "Av. Dom Pedro",
+        "DataDeNascimento": "1997-06-25T00:00:00",
+        "Id": 1
+      },
+      "Id": 1
+    },
+    {
+      "Titulo": "teste",
+      "Ano": "1990",
+      "Categoria": "ação",
+      "Locado": true,
+      "LocatarioId": 1,
+      "Locatario": {
+        "Nome": "Lucas",
+        "EnderecoCompleto": "Av. Dom Pedro",
+        "DataDeNascimento": "1997-06-25T00:00:00",
+        "Id": 1
+      },
+      "Id": 2
+    },
+    {
+      "Titulo": "novoTitulo",
+      "Ano": "1992",
+      "Categoria": "categoria do filme cadastrado via api2",
+      "Locado": true,
+      "LocatarioId": 1,
+      "Locatario": {
+        "Nome": "Lucas",
+        "EnderecoCompleto": "Av. Dom Pedro",
+        "DataDeNascimento": "1997-06-25T00:00:00",
+        "Id": 1
+      },
+      "Id": 5
+    },
+    {
+      "Titulo": "Titulo do Filme cadastrado api2",
+      "Ano": "1992",
+      "Categoria": "categoria do filme cadastrado via api2",
+      "Locado": false,
+      "LocatarioId": 0,
+      "Locatario": null,
+      "Id": 6
+    },
+    {
+      "Titulo": "novoTitulo",
+      "Ano": "1992",
+      "Categoria": "categoria do filme cadastrado via api2",
+      "Locado": true,
+      "LocatarioId": 1,
+      "Locatario": {
+        "Nome": "Lucas",
+        "EnderecoCompleto": "Av. Dom Pedro",
+        "DataDeNascimento": "1997-06-25T00:00:00",
+        "Id": 1
+      },
+      "Id": 5
+    }
+  ],
+  "locatarios": [
+    {
+      "Nome": "Lucas",
+      "EnderecoCompleto": "Av. Dom Pedro",
+      "DataDeNascimento": "1997-06-25T00:00:00",
+      "Id": 1
+    },
+    {
+      "Nome": "novo2",
+      "EnderecoCompleto": "ende",
+      "DataDeNascimento": "2010-10-10T00:00:00",
+      "Id": 2
+    },
+    {
+      "Nome": "Nome Locatario",
+      "EnderecoCompleto": null,
+      "DataDeNascimento": "2019-01-06T17:16:40",
+      "Id": 4
+    },
+    {
+      "Nome": "Nome Locatario",
+      "EnderecoCompleto": "Endereço Locatario",
+      "DataDeNascimento": "2019-01-06T17:16:40",
+      "Id": 5
+    },
+    {
+      "Nome": "Nome Locatario",
+      "EnderecoCompleto": "Endereço Locatario",
+      "DataDeNascimento": "2019-01-06T17:16:40",
+      "Id": 6
+    }
+  ]
+}
