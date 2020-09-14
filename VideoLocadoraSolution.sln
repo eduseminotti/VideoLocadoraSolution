@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoLocadora.Consoles", "V
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoLocadora.Dominio", "VideoLocadora.Dominio\VideoLocadora.Dominio.csproj", "{4C71EF22-EBAD-4FAA-903A-9E2282DFDF59}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoLocadora.Repositorio", "VideoLocadora.Repositorio\VideoLocadora.Repositorio.csproj", "{6B21050F-E7B6-4AC4-9A50-6EBFC4916F08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoLocadora.Repositorio.Json", "VideoLocadora.Repositorio\VideoLocadora.Repositorio.Json.csproj", "{6B21050F-E7B6-4AC4-9A50-6EBFC4916F08}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Presentation Layer", "1. Presentation Layer", "{2ABC23E5-AF78-42C4-8E50-24DEDBDCF285}"
 EndProject
@@ -18,10 +18,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Distribuicao", "4. Distribuicao", "{2EE266DC-8837-4C83-8FAD-BC458653738F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoLocadora.WebApi", "VideoLocadora.WebApi\VideoLocadora.WebApi.csproj", "{CDCB6B12-4DE7-477D-B852-87705409B1E1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{24E1D805-4992-4410-BD65-CC1AC7700692} = {24E1D805-4992-4410-BD65-CC1AC7700692}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Tests", "5. Tests", "{46978AAD-60BA-482C-8075-C8B6F3B266CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoLocadora.Tests", "VideoLocadora.Tests\VideoLocadora.Tests.csproj", "{1782A971-2DDD-4971-A104-C31E0F397DAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoLocadora.Tests", "VideoLocadora.Tests\VideoLocadora.Tests.csproj", "{1782A971-2DDD-4971-A104-C31E0F397DAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoLocadora.Repositorio.Sql", "VideoLocadora.Repositorio.Sql\VideoLocadora.Repositorio.Sql.csproj", "{24E1D805-4992-4410-BD65-CC1AC7700692}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +54,10 @@ Global
 		{1782A971-2DDD-4971-A104-C31E0F397DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1782A971-2DDD-4971-A104-C31E0F397DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1782A971-2DDD-4971-A104-C31E0F397DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24E1D805-4992-4410-BD65-CC1AC7700692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24E1D805-4992-4410-BD65-CC1AC7700692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24E1D805-4992-4410-BD65-CC1AC7700692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24E1D805-4992-4410-BD65-CC1AC7700692}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +68,7 @@ Global
 		{6B21050F-E7B6-4AC4-9A50-6EBFC4916F08} = {093F7E99-4FC4-4516-80E1-F109E316A028}
 		{CDCB6B12-4DE7-477D-B852-87705409B1E1} = {2EE266DC-8837-4C83-8FAD-BC458653738F}
 		{1782A971-2DDD-4971-A104-C31E0F397DAE} = {46978AAD-60BA-482C-8075-C8B6F3B266CA}
+		{24E1D805-4992-4410-BD65-CC1AC7700692} = {093F7E99-4FC4-4516-80E1-F109E316A028}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97DA85C3-ECA0-423B-BCFB-56579C4F6FF6}

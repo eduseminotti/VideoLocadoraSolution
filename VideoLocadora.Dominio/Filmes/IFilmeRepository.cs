@@ -4,10 +4,12 @@ namespace VideoLocadora.Dominio.Filmes
 {
     public interface IFilmeRepository
     {
-        bool SalvarFilme(Filme filme);
+        bool CadastrarFilme(Filme filme);
         Filme RetornarPorTitulo(string titulo);
 
-        Filme AtualizarFilme(Filme filme);
+        bool AtualizarFilme(Filme filme);
+        
+        bool LocarOuDevolverFilme(Filme filme);
 
         Filme RetornarFilmePorId(int id);
 

@@ -14,6 +14,7 @@ using VideoLocadora.Dominio.Filmes;
 using VideoLocadora.Dominio.Locatarios;
 using VideoLocadora.Repositorio;
 using VideoLocadora.Repositorio.Settings;
+using VideoLocadora.Repositorio.Sql;
 
 namespace VideoLocadora.WebApi
 {
@@ -31,16 +32,19 @@ namespace VideoLocadora.WebApi
         {
             services.AddControllers();
 
+            services.AddControllers(options => options.RespectBrowserAcceptHeader = true)
+                   .AddXmlDataContractSerializerFormatters();
+
             var dataSettings = this.Configuration.GetSection("DataSettings");
             services.Configure<DataSettings>(dataSettings);
 
 
             services.AddScoped<ILocatarioRepository, LocatarioRepositorio>();
+            services.AddScoped<ILocatarioRepository, LocatarioRepositorio>();
             services.AddScoped<LocatarioDomainService>();
             services.AddScoped<IFilmeRepository, FilmeRepositorio>();
             services.AddScoped<FilmeDomainService>();
 
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

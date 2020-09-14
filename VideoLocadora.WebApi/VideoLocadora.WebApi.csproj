@@ -6,7 +6,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VideoLocadora.Dominio\VideoLocadora.Dominio.csproj" />
-    <ProjectReference Include="..\VideoLocadora.Repositorio\VideoLocadora.Repositorio.csproj" />
+    <ProjectReference Include="..\VideoLocadora.Repositorio.Sql\VideoLocadora.Repositorio.Sql.csproj" />
+    <ProjectReference Include="..\VideoLocadora.Repositorio\VideoLocadora.Repositorio.Json.csproj" />
   </ItemGroup>
 
 

@@ -1,40 +1,28 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 using VideoLocadora.Dominio.Base;
+using VideoLocadora.Dominio.Enuns;
 using VideoLocadora.Dominio.Locatarios;
 
 namespace VideoLocadora.Dominio.Filmes
 {
     public class Filme : Entidade
     {
-        /// <summary>
-        /// Indica o título do filme
-        /// </summary>
+
         public string Titulo { get; set; }
 
-        /// <summary>
-        /// Ano de lançamento
-        /// </summary>
+
         public string Ano { get; set; }
 
-        /// <summary>
-        /// Categoria do filme
-        /// </summary>
+ 
         public string Categoria { get; set; }
 
-        /// <summary>
-        /// Indica se o filme encontra-se locado
-        /// </summary>
-        public bool Locado { get; set; }
 
-        /// <summary>
-        /// Id do locatário
-        /// </summary>
-        public int LocatarioId { get; set; }
+        public FilmeLocado Locado { get; set; }
 
-        /// <summary>
-        /// Locatário que está com o filme emprestado
-        /// </summary>
+
+        public int ?LocatarioId { get; set; }
+
         public Locatario Locatario { get; set; }
 
         public Filme(string titulo, string ano, string categoria)
@@ -42,44 +30,45 @@ namespace VideoLocadora.Dominio.Filmes
             Titulo = titulo;
             Ano = ano;
             Categoria = categoria;
-            Locado = false;
+            Locado = FilmeLocado.Nao;
         }
 
-        /// <summary>
-        /// Atualiza o título do filme, caso o título novo for vazio a atualização não acontecerá.
-        /// </summary>
-        /// <param name="titulo">Novo título</param>
+
+
+        public Filme()
+        {
+        }
+
         public void AtualizarTitulo(string titulo)
         {
             if (titulo != string.Empty)
                 this.Titulo = titulo;
         }
 
-        /// <summary>
-        /// Retorna um valor booleano que indica se o filme está disponível
-        /// </summary>
-        /// <returns></returns>
         public bool EstaDisponivel()
         {
-            return Locado == false;
+            return Locado == FilmeLocado.Nao;
         }
 
-        /// <summary>
-        /// Realiza a locação do filme para um locatário.
-        /// Se o filme já estiver locado, uma exceção <see cref="FilmeLocadoException"/> será lançada.
-        /// </summary>
-        /// <param name="locatario"></param>
+
         public void LocarFilme(Locatario locatario)
         {
-            if (Locado)
+            if (Locado == FilmeLocado.Sim)
             {
                 throw new FilmeLocadoException("O filme está indisponível.");
             }
 
-            Locado = true;
+            Locado = FilmeLocado.Sim;
             LocatarioId = locatario.Id;
             Locatario = locatario;
         }
+        public void DevolverFilme()
+        {
+            Locado = FilmeLocado.Nao;
+            LocatarioId = null;
+            Locatario = null;
+        }
+
 
         public override bool Equals(object obj)
         {
@@ -95,7 +84,7 @@ namespace VideoLocadora.Dominio.Filmes
 
         public override string ToString()
         {
-            string situacao = Locado ? "Locado" : "Disponível";
+            string situacao = Locado == FilmeLocado.Sim ? "Locado" : "Disponível";
 
             return $"Título: {Titulo} \nCategoria: {Categoria} \nAno de Lançamento: {Ano} \nSituação do filme: {situacao}";
         }
