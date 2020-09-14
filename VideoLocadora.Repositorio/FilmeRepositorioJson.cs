@@ -9,9 +9,9 @@ using VideoLocadora.Repositorio.Settings;
 
 namespace VideoLocadora.Repositorio
 {
-    public class FilmeRepositorio : Repositorio<Filme>, IFilmeRepository
+    public class FilmeRepositorioJson : Repositorio<Filme>, IFilmeRepository
     {
-        public FilmeRepositorio(IOptions<DataSettings> caminhoDados)
+        public FilmeRepositorioJson(IOptions<DataSettings> caminhoDados)
             : base(caminhoDados.Value.PathToData, "filmes")
         {
             
@@ -50,7 +50,7 @@ namespace VideoLocadora.Repositorio
             return Retornar();
         }
 
-        public bool SalvarFilme(Filme filme)
+        public bool CadastrarFilme(Filme filme)
         {
             var id = RetornarUltimoId() +1;
             filme.Id = id;

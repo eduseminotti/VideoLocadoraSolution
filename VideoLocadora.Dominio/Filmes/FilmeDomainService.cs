@@ -14,9 +14,12 @@ namespace VideoLocadora.Dominio.Filmes
 
         public bool LocarFilme(Filme filme, Locatario locatario)
         {
-            filme.LocarFilme(locatario);
+            if (locatario != null)
+                filme.LocarFilme(locatario);
+            else
+                filme.DevolverFilme();
 
-            _filmeRepository.AtualizarFilme(filme);
+            _filmeRepository.LocarOuDevolverFilme(filme);
 
             return true;
         }
@@ -24,27 +27,24 @@ namespace VideoLocadora.Dominio.Filmes
         public Filme CadastrarFilme(string titulo, string ano, string categoria)
         {
             var filme = new Filme(titulo, ano, categoria);
-            _filmeRepository.SalvarFilme(filme);
+            _filmeRepository.CadastrarFilme(filme);
 
             return filme;
         }
 
-        public bool AtualizarFilme(int id, string titulo)
+        public bool AtualizarFilme(Filme filme, string novoTitulo)
         {
-            var filme = _filmeRepository.RetornarFilmePorId(id);
 
-            filme.AtualizarTitulo(titulo);
+            filme.AtualizarTitulo(novoTitulo);
 
             var sucess = _filmeRepository.AtualizarFilme(filme);
 
             return sucess != null;
         }
 
-        public bool DeletarFilme(string tituloDoFilme)
+        public bool DeletarFilme(Filme filme)
         {
-            var filmeEscolhido = _filmeRepository.RetornarPorTitulo(tituloDoFilme);
-
-            return _filmeRepository.DeletarFilme(filmeEscolhido);
+            return _filmeRepository.DeletarFilme(filme);
         }
         public IList<Filme> ListarFilmes()
         {

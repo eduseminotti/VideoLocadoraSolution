@@ -27,10 +27,9 @@ namespace VideoLocadora.Dominio.Locatarios
         {
             return _locatarioRepository.ListarLocatarios();
         }
-        public bool DeletarLocatario(string nomeDoLocatario)
+        public bool DeletarLocatario(Locatario locatario)
         {
-            var locatario = _locatarioRepository.EncontrarPorNome(nomeDoLocatario);
-
+            //todo implementar verificação se locatario possuir algum filme locado antes de excluir
             return _locatarioRepository.DeletarLocatario(locatario);            
         }
   

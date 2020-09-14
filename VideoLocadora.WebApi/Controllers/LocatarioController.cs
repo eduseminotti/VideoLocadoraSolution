@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace VideoLocadora.WebApi.Controllers
         private ILocatarioRepository _locatarioRepository;
         private LocatarioDomainService _locatarioDomainService;
 
-        public LocatarioController(ILocatarioRepository locatarioRepository , LocatarioDomainService locatarioDomainService)
+        public LocatarioController(ILocatarioRepository locatarioRepository, LocatarioDomainService locatarioDomainService)
         {
             _locatarioRepository = locatarioRepository;
             _locatarioDomainService = locatarioDomainService;
@@ -27,17 +28,25 @@ namespace VideoLocadora.WebApi.Controllers
             var locatario = _locatarioDomainService.ListarLocatarios();
             return locatario;
         }
+        [HttpGet]
+        [Route("{Id}")]
+        public Locatario GetById(int d)
+        {
+            var locatario = new Locatario();
+            return locatario;
+
+        }
 
         [HttpPost]
         public IActionResult Post(LocatarioModel locatarioModel)
         {
-                    
-           var sucesso =  _locatarioDomainService.CadastrarLocatario(locatarioModel.Nome, locatarioModel.DataDeNascimento , locatarioModel.EnderecoCompleto);
+
+            var sucesso = _locatarioDomainService.CadastrarLocatario(locatarioModel.Nome, locatarioModel.DataDeNascimento, locatarioModel.EnderecoCompleto);
 
             if (!sucesso)
                 return BadRequest("Ocorreu um erro ao cadastrar o locatario");
             else
-                return Ok("locatario cadastrado com suceso");
+                return Created("/Locatario", null);
 
         }
 
@@ -50,7 +59,7 @@ namespace VideoLocadora.WebApi.Controllers
             if (locatario == null)
                 return NotFound("Não encontrado o locatario especificado");
 
-            var sucesso =  _locatarioDomainService.DeletarLocatario(locatario.Nome);
+            var sucesso = _locatarioDomainService.DeletarLocatario(locatario);
 
             if (!sucesso)
                 return BadRequest("Ocorreu um erro ao deletar o locatario");

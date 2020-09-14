@@ -11,10 +11,10 @@ using VideoLocadora.Repositorio.Settings;
 
 namespace VideoLocadora.Repositorio
 {
-    public class LocatarioRepositorio : Repositorio<Locatario>, ILocatarioRepository
+    public class LocatarioRepositorioJson : Repositorio<Locatario>, ILocatarioRepository
     {
         
-        public LocatarioRepositorio(IOptions<DataSettings> caminhoDados) 
+        public LocatarioRepositorioJson(IOptions<DataSettings> caminhoDados) 
             : base(caminhoDados.Value.PathToData , "locatarios") 
         {
            
