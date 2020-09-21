@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using VideoLocadora.Dominio.Enuns;
 using VideoLocadora.Dominio.Locatarios;
 
 namespace VideoLocadora.Dominio.Filmes
@@ -49,6 +50,15 @@ namespace VideoLocadora.Dominio.Filmes
         public IList<Filme> ListarFilmes()
         {
             return _filmeRepository.RetornarTodos();
+        }
+
+        public bool VerificaSeOFilmeEstaLocado(Filme filme)
+        {
+            if (filme.Locado == FilmeLocado.Sim)
+            {
+                return true;
+            }
+            return false;
         }
 
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using VideoLocadora.Dominio.Enuns;
 using VideoLocadora.Dominio.Filmes;
+using VideoLocadora.Dominio.Locatarios;
 
 namespace VideoLocadora.Repositorio.Sql
 {
@@ -85,7 +86,9 @@ namespace VideoLocadora.Repositorio.Sql
                 SqlCommand cmd = new SqlCommand
                 {
                     Connection = conexao,
-                    CommandText = $"select id, titulo,ano,categoria , locado, locatarioId from dbo.filme where id = {id}"
+                    CommandText = $"select f.id id, f.Titulo titulo  , f.categoria categoria , f.ano ano, f.Locado locado, f.LocatarioId locatarioId, l.Nome nomelocatario , " +
+                    $" l.EnderecoCompleto EnderecoCompletolocatario,  l.DataDeNascimento DataDeNascimentolocatario " +
+                    $" FROM [VideoLocadora].[dbo].[Filme] as f left join[VideoLocadora].[dbo].[Locatario] as l on l.id = f.LocatarioId where f.id = {id}"
                 };
 
                 conexao.Open();
@@ -96,11 +99,18 @@ namespace VideoLocadora.Repositorio.Sql
                 {
                     filme.Id = int.Parse(query["id"].ToString());
                     filme.Titulo = query["Titulo"].ToString();
-                    filme.Categoria = query["Categoria"].ToString();
+                    filme.Categoria = query["categoria"].ToString();
                     filme.Ano = query["Ano"].ToString();
                     filme.Locado = (FilmeLocado)int.Parse(query["locado"].ToString());
-                    filme.LocatarioId = int.Parse(query["LocatarioId"].ToString());
+                    var locatarioid = query["LocatarioId"].ToString();
 
+                    if (locatarioid != null && locatarioid != "")
+                    {
+                        filme.LocatarioId = int.Parse(locatarioid);
+                        filme.LocatarioDoFilme.Nome = query["nomelocatario"].ToString();
+                        filme.LocatarioDoFilme.EnderecoCompleto = query["EnderecoCompletolocatario"].ToString();
+                        filme.LocatarioDoFilme.DataDeNascimento = DateTime.Parse(query["DataDeNascimentolocatario"].ToString());
+                    }
                 }
             }
             catch (Exception ex)
@@ -125,7 +135,9 @@ namespace VideoLocadora.Repositorio.Sql
                 SqlCommand cmd = new SqlCommand
                 {
                     Connection = conexao,
-                    CommandText = $"select id, titulo,ano,categoria , locado, locatarioId from dbo.filme where titulo = '{titulo}'"
+                    CommandText = $"select f.id id, f.Titulo titulo  , f.categoria categoria , f.ano ano, f.Locado locado, f.LocatarioId locatarioId, l.Nome nomelocatario , " +
+                    $" l.EnderecoCompleto EnderecoCompletolocatario,  l.DataDeNascimento DataDeNascimentolocatario " +
+                    $" FROM [VideoLocadora].[dbo].[Filme] as f left join[VideoLocadora].[dbo].[Locatario] as l on l.id = f.LocatarioId  where f.titulo = '{titulo}'"
                 };
 
                 conexao.Open();
@@ -136,11 +148,18 @@ namespace VideoLocadora.Repositorio.Sql
                 {
                     filme.Id = int.Parse(query["id"].ToString());
                     filme.Titulo = query["Titulo"].ToString();
-                    filme.Categoria = query["Categoria"].ToString();
+                    filme.Categoria = query["categoria"].ToString();
                     filme.Ano = query["Ano"].ToString();
                     filme.Locado = (FilmeLocado)int.Parse(query["locado"].ToString());
-                    filme.LocatarioId = int.Parse(query["LocatarioId"].ToString());
+                    var locatarioid = query["LocatarioId"].ToString();
 
+                    if (locatarioid != null && locatarioid != "")
+                    {
+                        filme.LocatarioId = int.Parse(locatarioid);
+                        filme.LocatarioDoFilme.Nome = query["nomelocatario"].ToString();
+                        filme.LocatarioDoFilme.EnderecoCompleto = query["EnderecoCompletolocatario"].ToString();
+                        filme.LocatarioDoFilme.DataDeNascimento = DateTime.Parse(query["DataDeNascimentolocatario"].ToString());
+                    }
                 }
             }
             catch (Exception ex)
@@ -165,7 +184,9 @@ namespace VideoLocadora.Repositorio.Sql
                 SqlCommand cmd = new SqlCommand
                 {
                     Connection = conexao,
-                    CommandText = $"select id, titulo,ano,categoria , locado, locatarioId from dbo.filme"
+                    CommandText = $"select f.id id, f.Titulo titulo  , f.categoria categoria , f.ano ano, f.Locado locado, f.LocatarioId locatarioId, l.Nome nomelocatario , " +
+                    $" l.EnderecoCompleto EnderecoCompletolocatario,  l.DataDeNascimento DataDeNascimentolocatario " +
+                    $" FROM [VideoLocadora].[dbo].[Filme] as f left join[VideoLocadora].[dbo].[Locatario] as l on l.id = f.LocatarioId "
                 };
 
                 conexao.Open();
@@ -178,13 +199,19 @@ namespace VideoLocadora.Repositorio.Sql
 
                     filme.Id = int.Parse(query["id"].ToString());
                     filme.Titulo = query["Titulo"].ToString();
-                    filme.Categoria = query["Categoria"].ToString();
+                    filme.Categoria = query["categoria"].ToString();
                     filme.Ano = query["Ano"].ToString();
                     filme.Locado = (FilmeLocado)int.Parse(query["locado"].ToString());
                     var locatarioid = query["LocatarioId"].ToString();
 
                     if (locatarioid != null && locatarioid != "")
+                    {
                         filme.LocatarioId = int.Parse(locatarioid);
+                        filme.LocatarioDoFilme.Nome = query["nomelocatario"].ToString();
+                        filme.LocatarioDoFilme.EnderecoCompleto = query["EnderecoCompletolocatario"].ToString();
+                        filme.LocatarioDoFilme.DataDeNascimento = DateTime.Parse(query["DataDeNascimentolocatario"].ToString());
+                    }
+
 
                     filmes.Add(filme);
                 }
@@ -236,7 +263,6 @@ namespace VideoLocadora.Repositorio.Sql
 
             try
             {
-
                 var locado = filme.Locado == FilmeLocado.Sim ? 1 : 0;
 
                 string update;
@@ -267,6 +293,61 @@ namespace VideoLocadora.Repositorio.Sql
             {
                 conexao.Close();
             }
+        }
+
+        public List<Filme> ListaFilmesDoLocatario(int locatarioId)
+        {
+            SqlConnection conexao = new SqlConnection(_connectionString);
+
+            var filmes = new List<Filme>();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand
+                {
+                    Connection = conexao,
+                    CommandText = $"select f.id id, f.Titulo titulo  , f.categoria categoria , f.ano ano, f.Locado locado, f.LocatarioId locatarioId, l.Nome nomelocatario , " +
+                    $" l.EnderecoCompleto EnderecoCompletolocatario,  l.DataDeNascimento DataDeNascimentolocatario " +
+                    $" FROM [VideoLocadora].[dbo].[Filme] as f left join[VideoLocadora].[dbo].[Locatario] as l on l.id = f.LocatarioId " +
+                    $" where f.LocatarioId = {locatarioId}"
+                };
+
+                conexao.Open();
+
+                SqlDataReader query = cmd.ExecuteReader();
+
+                while (query.Read())
+                {
+                    Filme filme = new Filme();
+
+                    filme.Id = int.Parse(query["id"].ToString());
+                    filme.Titulo = query["Titulo"].ToString();
+                    filme.Categoria = query["categoria"].ToString();
+                    filme.Ano = query["Ano"].ToString();
+                    filme.Locado = (FilmeLocado)int.Parse(query["locado"].ToString());
+                    var locatarioid = query["LocatarioId"].ToString();
+
+                    if (locatarioid != null && locatarioid != "")
+                    {
+                        filme.LocatarioId = int.Parse(locatarioid);
+                        filme.LocatarioDoFilme.Nome = query["nomelocatario"].ToString();
+                        filme.LocatarioDoFilme.EnderecoCompleto = query["EnderecoCompletolocatario"].ToString();
+                        filme.LocatarioDoFilme.DataDeNascimento = DateTime.Parse(query["DataDeNascimentolocatario"].ToString());
+                    }
+
+
+                    filmes.Add(filme);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                conexao.Close();
+            }
+            return filmes;
         }
     }
 }
