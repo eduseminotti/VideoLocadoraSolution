@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using VideoLocadora.Dominio.Locatarios;
 
 namespace VideoLocadora.Dominio.Filmes
 {
@@ -15,5 +16,7 @@ namespace VideoLocadora.Dominio.Filmes
 
         bool DeletarFilme(Filme filme);
         IList<Filme> RetornarTodos();
+
+        List<Filme> ListaFilmesDoLocatario(int locatarioId);
     }
 }

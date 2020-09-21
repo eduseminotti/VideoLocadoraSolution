@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VideoLocadora.Dominio.Filmes;
 
 namespace VideoLocadora.Dominio.Locatarios
 {
     public class LocatarioDomainService
     {
-        private readonly ILocatarioRepository _locatarioRepository ;
+        private readonly ILocatarioRepository _locatarioRepository;
+        private readonly IFilmeRepository _filmeRepository;
 
-        public LocatarioDomainService(ILocatarioRepository locatarioRepository)
+        public LocatarioDomainService(ILocatarioRepository locatarioRepository, IFilmeRepository filmeRepository)
         {
-           _locatarioRepository = locatarioRepository;
-            
+            _locatarioRepository = locatarioRepository;
+            _filmeRepository = filmeRepository;
         }
 
         public bool CadastrarLocatario(string nome, DateTime dataDeNascimento, string endereco)
@@ -30,8 +32,12 @@ namespace VideoLocadora.Dominio.Locatarios
         public bool DeletarLocatario(Locatario locatario)
         {
             //todo implementar verificação se locatario possuir algum filme locado antes de excluir
-            return _locatarioRepository.DeletarLocatario(locatario);            
+            return _locatarioRepository.DeletarLocatario(locatario);
         }
-  
+        public List<Filme> VerificaSeOLocatarioPossuiFilmeLocado(Locatario locatario)
+        {
+            return _filmeRepository.ListaFilmesDoLocatario(locatario.Id);
+        }
+
     }
 }

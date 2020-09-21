@@ -13,17 +13,14 @@ namespace VideoLocadora.Dominio.Filmes
 
 
         public string Ano { get; set; }
-
  
         public string Categoria { get; set; }
 
-
         public FilmeLocado Locado { get; set; }
-
 
         public int ?LocatarioId { get; set; }
 
-        public Locatario Locatario { get; set; }
+        public Locatario LocatarioDoFilme { get; set; }
 
         public Filme(string titulo, string ano, string categoria)
         {
@@ -31,12 +28,12 @@ namespace VideoLocadora.Dominio.Filmes
             Ano = ano;
             Categoria = categoria;
             Locado = FilmeLocado.Nao;
+            LocatarioDoFilme = new Locatario();
         }
-
-
 
         public Filme()
         {
+            LocatarioDoFilme = new Locatario();
         }
 
         public void AtualizarTitulo(string titulo)
@@ -45,12 +42,7 @@ namespace VideoLocadora.Dominio.Filmes
                 this.Titulo = titulo;
         }
 
-        public bool EstaDisponivel()
-        {
-            return Locado == FilmeLocado.Nao;
-        }
-
-
+  
         public void LocarFilme(Locatario locatario)
         {
             if (Locado == FilmeLocado.Sim)
@@ -60,13 +52,13 @@ namespace VideoLocadora.Dominio.Filmes
 
             Locado = FilmeLocado.Sim;
             LocatarioId = locatario.Id;
-            Locatario = locatario;
+            LocatarioDoFilme = locatario;
         }
         public void DevolverFilme()
         {
             Locado = FilmeLocado.Nao;
             LocatarioId = null;
-            Locatario = null;
+            LocatarioDoFilme = null;
         }
 
 
@@ -82,11 +74,6 @@ namespace VideoLocadora.Dominio.Filmes
                 filme.Ano.Equals(this.Ano, StringComparison.OrdinalIgnoreCase);
         }
 
-        public override string ToString()
-        {
-            string situacao = Locado == FilmeLocado.Sim ? "Locado" : "Disponível";
 
-            return $"Título: {Titulo} \nCategoria: {Categoria} \nAno de Lançamento: {Ano} \nSituação do filme: {situacao}";
-        }
     }
 }

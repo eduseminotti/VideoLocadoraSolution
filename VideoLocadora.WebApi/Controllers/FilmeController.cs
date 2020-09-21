@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using VideoLocadora.Dominio.Enuns;
 using VideoLocadora.Dominio.Filmes;
 using VideoLocadora.Dominio.Locatarios;
 using VideoLocadora.WebApi.Models;
@@ -52,7 +53,7 @@ namespace VideoLocadora.WebApi.Controllers
             if (fimeCriado == null)
                 return BadRequest("Ocorreu um erro ao cadastrar o filme");
             else
-                return Created("/Filme/{fimeCriado.Id}", fimeCriado);
+                return Created("/Filme/{fimeCriado.Id}", "Filme cadastrado com sucesso.");
         }
         [HttpPut]
         public IActionResult AtualizarFilme(AtualizaFilmeModel filme)
@@ -86,6 +87,9 @@ namespace VideoLocadora.WebApi.Controllers
 
                 if (locatario == null)
                     return NotFound("Não encontrado o locatario especificado");
+
+                if (filme.Locado == FilmeLocado.Sim)
+                    return BadRequest("Filme esta indisponivel.");
             }
             else
                 locatario = null;
@@ -93,9 +97,9 @@ namespace VideoLocadora.WebApi.Controllers
             var sucesso = _filmeDomainService.LocarFilme(filme, locatario);
 
             if (!sucesso)
-                return Conflict("Ocorreu um erro ao locar o filme, o filme especificado ja esta locado.");
+                return Conflict("Ocorreu um erro ao locar ou devolver o filme.");
             else
-                return Ok("Filme locado com suceso");
+                return Ok("sucesso.");
 
 
         }
@@ -108,12 +112,18 @@ namespace VideoLocadora.WebApi.Controllers
             if (filme == null)
                 return NotFound("Não encontrado o filme especificado");
 
-            var sucesso = _filmeDomainService.DeletarFilme(filme);
+            var sucesso = _filmeDomainService.VerificaSeOFilmeEstaLocado(filme);
+
+            if (sucesso)
+                return BadRequest("Não é possivel deletar um filme que esta locado.");
+
+            sucesso = _filmeDomainService.DeletarFilme(filme);
 
             if (!sucesso)
-                return BadRequest("Ocorreu um erro ao deletar o filme");
-            else
-                return Ok("Filme deletado com suceso");
+                return BadRequest("Ocorreu um erro ao deletar o filme.");
+
+
+            return Ok("Filme deletado com suceso");
         }
     }
 }

@@ -1,6 +1,7 @@
 using Moq;
 using NUnit.Framework;
 using System;
+using VideoLocadora.Dominio.Enuns;
 using VideoLocadora.Dominio.Filmes;
 using VideoLocadora.Dominio.Locatarios;
 
@@ -31,7 +32,7 @@ namespace VideoLocadora.Tests
             locatario.EnderecoCompleto = "Endereço completo";
 
             var filme = new Filme("titulo", "1010", "cat");
-            filme.Locado = true;
+            filme.Locado = FilmeLocado.Sim;
 
             //ação
 
@@ -50,7 +51,7 @@ namespace VideoLocadora.Tests
             locatario.EnderecoCompleto = "Endereço completo";
 
             var filme = new Filme("titulo", "1010", "cat");
-            filme.Locado = false;
+            filme.Locado = FilmeLocado.Nao;
 
             //ação
 

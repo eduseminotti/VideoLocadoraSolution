@@ -14,6 +14,6 @@ namespace VideoLocadora.Dominio.Locatarios
 
         Locatario EncontrarPorNome(string nome);
 
-        Locatario EncontrarPorId(int id);
+        Locatario EncontrarPorId(int id);        
     }
 }

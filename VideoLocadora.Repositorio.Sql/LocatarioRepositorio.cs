@@ -189,5 +189,7 @@ namespace VideoLocadora.Repositorio.Sql
             return locatarios;
 
         }
+
+        
     }
 }

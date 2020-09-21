@@ -7,17 +7,14 @@ namespace VideoLocadora.Dominio.Locatarios
     {
         public string Nome { get; set; }
         public string EnderecoCompleto { get; set; }
-        public DateTime DataDeNascimento { get; set; }
+        public DateTime? DataDeNascimento { get; set; }
 
         public Locatario()
         {
             
         }
 
-        public override string ToString()
-        {
-            return $"Nome: {Nome}  Endereço Completo: {EnderecoCompleto}  Data de Nascimento: {DataDeNascimento.ToShortDateString()}";
-        }
+
 
         public override bool Equals(object obj)
         {

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VideoLocadora.Dominio.Filmes;
 using VideoLocadora.Dominio.Locatarios;
 
 namespace VideoLocadora.WebApi.Controllers
@@ -46,7 +47,7 @@ namespace VideoLocadora.WebApi.Controllers
             if (!sucesso)
                 return BadRequest("Ocorreu um erro ao cadastrar o locatario");
             else
-                return Created("/Locatario", null);
+                return Created("/Locatario/{locatario.id}", "Locatario cadastrado com Sucesso.");
 
         }
 
@@ -58,6 +59,22 @@ namespace VideoLocadora.WebApi.Controllers
 
             if (locatario == null)
                 return NotFound("Não encontrado o locatario especificado");
+
+            List<Filme> filmes = _locatarioDomainService.VerificaSeOLocatarioPossuiFilmeLocado(locatario);
+
+            if(filmes.Count != 0 )
+            {
+                string retorno = $"Não é possivel deletar o Locatario, o locatario possui o(s) seguinte(s) filme(s) locado(s): ";
+                
+                foreach (var filme in filmes)
+                {
+
+                    retorno = retorno + " Titulo: " + filme.Titulo + "; " ;
+                }
+                                
+                return BadRequest(retorno);
+            }
+
 
             var sucesso = _locatarioDomainService.DeletarLocatario(locatario);
 
